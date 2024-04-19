@@ -1,21 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addtolist, removefromlist } from './actions';
+import { addtolist, removefromlist, updateCheckbox, handleAllCompleted, handleClearCompleted } from './actions';
 import { useState } from 'react';
 
 
 function App() {
   const [value, setValue]= useState("");
+  
   const mystate= useSelector(e=>e.changeTheList);
   const dispatch= useDispatch();
   return (
     <>
     <label>Add item to list</label>
     <input onChange={e=>setValue(e.target.value)}/>
+    
     <button onClick={()=>dispatch(addtolist({
       value:value,
-      completed:false,
+      checked:false,
       colorCode:undefined,
       id:Math.random()*100
     }))}>Add to list</button>
@@ -24,7 +26,7 @@ function App() {
         mystate.map(e=>
           <div>
 
-            <input type='checkbox'/>
+            <input type='checkbox' checked={e.checked} onChange={()=>dispatch(updateCheckbox(e.id))}/>
             <span>{e.value}</span>
             <select name="colors" id="colors">
               <option value="red">red</option>
@@ -40,7 +42,7 @@ function App() {
    <div style={{display:"flex", flexDirection:"row"}}>
     <div style={{display:"flex", flexDirection:"column", alignContent:"center"}}>
       <h3>Actions</h3>
-      <button>Mark as completed</button>
+      <button onClick={()=>dispatch(handleAllCompleted())}>Mark all completed</button>
       <button>Cleaer completed</button>
     </div>
     <div style={{display:"flex", flexDirection:"column", alignContent:"center"}}>

@@ -5,8 +5,28 @@ export const addtolist=(e)=>{
     payload:e
 }}
 
-export const removefromlist=()=>{
+export const removefromlist=(e)=>{
     return {
-    type: "removefromlist"
+    type: "removefromlist",
+    payload:e
+    }
+}
+
+export const updateCheckbox=(e)=>{
+    return{
+        type:"updateCheckbox",
+        payload:e
+    }
+}
+
+export const handleAllCompleted=()=>{
+    return {
+        type:"handleALlCompleted"
+    }
+};
+
+export const handleClearCompleted=()=>{
+    return{
+        type:"handleClearCompleted"
     }
 }
